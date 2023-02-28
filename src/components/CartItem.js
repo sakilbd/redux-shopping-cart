@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+
 
 function CartItem({productId}) {
     const stateData = useSelector((state)=>state.productReducer)
 
-    let {product_name,product_catagory,product_image_link,product_unit_price}=stateData.products.filter((productInfo)=>productInfo.id==productId)[0]
+    let {product_name,product_catagory,product_image_link,product_unit_price,id}=stateData.products.filter((productInfo)=>productInfo.id==productId)[0]
+
+
+    let {quantity,unit_price}=stateData.cart[id];
+
+
 
   return (
     <div>
@@ -34,14 +40,14 @@ function CartItem({productId}) {
             <button class="lws-incrementQuantity">
               <i class="text-lg fa-solid fa-plus"></i>
             </button>
-            <span class="lws-cartQuantity">2</span>
+            <span class="lws-cartQuantity">{quantity}</span>
             <button class="lws-decrementQuantity">
               <i class="text-lg fa-solid fa-minus"></i>
             </button>
           </div>
           {/* <!-- price --> */}
           <p class="text-lg font-bold">
-            BDT <span class="lws-calculatedPrice">2200</span>
+            BDT <span class="lws-calculatedPrice">{quantity*unit_price}</span>
           </p>
         </div>
         {/* <!-- delete button --> */}

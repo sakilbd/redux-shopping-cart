@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import CartItem from "./CartItem";
 import { useSelector } from "react-redux";
 
 function Cart() {
   const stateData = useSelector((state) => state.productReducer);
+
+  const subTotal = Object.values(stateData.cart).reduce((total, valueObj) => {
+    console.log("subtotals")
+    console.log(total);
+    return total+(valueObj.quantity*valueObj.unit_price);
+  }, 0);
 
   return (
     <div>
@@ -14,7 +20,7 @@ function Cart() {
             <div class="space-y-6">
               {/* <!-- Cart Item --> */}
               {Object.keys(stateData.cart).map((productId) => {
-                return <CartItem productId = {productId} />;
+                return <CartItem productId={productId} />;
               })}
 
               {/* <!-- Cart Items Ends --> */}
@@ -31,7 +37,7 @@ function Cart() {
                   <div class="flex items-center justify-between">
                     <p>Sub Total</p>
                     <p>
-                      BDT <span class="lws-subtotal">8800</span>
+                      BDT <span class="lws-subtotal">{subTotal}</span>
                     </p>
                   </div>
                   {/* <!-- Discount --> */}
@@ -52,7 +58,7 @@ function Cart() {
                   <div class="flex items-center justify-between pb-4">
                     <p class="font-bold">TOTAL</p>
                     <p class="font-bold">
-                      BDT <span class="lws-total">8800</span>
+                      BDT <span class="lws-total">{subTotal}</span>
                     </p>
                   </div>
                   <button class="placeOrderbtn">place order</button>
