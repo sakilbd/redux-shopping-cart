@@ -39,7 +39,6 @@ const productReducer = (state = initialState, action) => {
           ...state.cart,
           [action.payload.id]: {
             quantity: getCartProductQuantity(state, action.payload.id)?getCartProductQuantity(state, action.payload.id):1,
-            // quantity:1,
             unit_price: action.payload.price
           },
         },
