@@ -1,16 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/products/actions";
 
-function ProductCard({productInfo}) {
-  let stateData = useSelector((state)=>state.productReducer)
+function ProductCard({ productInfo }) {
+  let stateData = useSelector((state) => state.productReducer);
   let dispatch = useDispatch();
+  // let [quantity,setQuantity]=useState()
 
-  const addToCartHandler = (e,price)=>{
-    dispatch(addToCart({id:e.target.value,price:price}))
-    
-
-  }
+  // setQuantity(productInfo.product_quantity);
+  const addToCartHandler = (e, price) => {
+    dispatch(addToCart({ id: e.target.value, price: price }));
+  };
   return (
     <div>
       <div class="lws-productCard">
@@ -24,13 +24,38 @@ function ProductCard({productInfo}) {
           <p class="lws-productCategory">{productInfo.product_catagory}</p>
           <div class="flex items-center justify-between pb-2">
             <p class="productPrice">
-              BDT <span class="lws-price">{productInfo.product_unit_price}</span>
+              BDT{" "}
+              <span class="lws-price">{productInfo.product_unit_price}</span>
             </p>
             <p class="productQuantity">
-              QTY <span class="lws-quantity">{productInfo.product_quantity}</span>
+              QTY{" "}
+              <span class="lws-quantity">{productInfo.product_quantity}</span>
             </p>
           </div>
-          <button class="lws-btnAddToCart" value={productInfo.id} onClick={(e)=>addToCartHandler(e,`${productInfo.product_unit_price}`)}>Add To Cart</button>
+          {productInfo.product_quantity == 0 ? (
+            <button
+            disabled
+              class="lws-btnAddToCart"
+              value={productInfo.id}
+              onClick={(e) =>
+                addToCartHandler(e, `${productInfo.product_unit_price}`)
+              }
+            >
+              Add To Cart
+            </button>
+          ) : (
+            <button  class="lws-btnAddToCart" value={productInfo.id} onClick={(e)=>addToCartHandler(e,`${productInfo.product_unit_price}`)} >Add To Cart</button>
+
+          )}
+          {/* <button
+            class="lws-btnAddToCart"
+            value={productInfo.id}
+            onClick={(e) =>
+              addToCartHandler(e, `${productInfo.product_unit_price}`)
+            }
+          >
+            Add To Cart
+          </button> */}
         </div>
       </div>
     </div>
