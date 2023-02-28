@@ -1,4 +1,4 @@
-import { PRODUCTADDED, ADDTOCART } from "./actionTypes";
+import { PRODUCTADDED, ADDTOCART, DELETEFROMCART } from "./actionTypes";
 // import initialState from "./initialState";
 const c = console.log.bind(console);
 const initialState = {
@@ -18,22 +18,30 @@ const getId = (product) => {
 const getCartProductQuantity = (cartState, productId) => {
   // c("quantity :",productId);
   // c(cartState.cart[productId]);
-  
-  let productPreviousQuantiy =(cartState.cart[productId]?.quantity ?cartState.cart[productId].quantity:0)+1
-  return productPreviousQuantiy
+
+  let productPreviousQuantiy =
+    (cartState.cart[productId]?.quantity
+      ? cartState.cart[productId].quantity
+      : 0) + 1;
+  return productPreviousQuantiy;
 };
 
-const productUpdateQuantity =(state,productId) =>{
-
-  const object = state.products.map(product=>{
-    if(product.id == productId){
-      return {...product,product_quantity:product.product_quantity-1}
+const productUpdateQuantity = (state, productId) => {
+  const object = state.products.map((product) => {
+    if (product.id == productId) {
+      return { ...product, product_quantity: product.product_quantity - 1 };
     }
     c(product);
-    return product
-  })
-return object;
-}
+    return product;
+  });
+  return object;
+};
+
+const deleteProductFromCart = (state, productId) => {
+  console.log('delete');
+  console.log(state.cart[productId])
+  return {...state.cart};
+};
 
 const productReducer = (state = initialState, action) => {
   // let obj = ;
@@ -50,15 +58,18 @@ const productReducer = (state = initialState, action) => {
         cart: {
           ...state.cart,
           [action.payload.id]: {
-            quantity: getCartProductQuantity(state, action.payload.id)?getCartProductQuantity(state, action.payload.id):1,
-            unit_price: action.payload.price
+            quantity: getCartProductQuantity(state, action.payload.id)
+              ? getCartProductQuantity(state, action.payload.id)
+              : 1,
+            unit_price: action.payload.price,
           },
         },
-        products:[
-         
-          ...productUpdateQuantity(state,action.payload.id)
-        ]
-
+        products: [...productUpdateQuantity(state, action.payload.id)],
+      };
+    case DELETEFROMCART:
+      return {
+        ...state,
+        cart: deleteProductFromCart(state, action.payload),
       };
 
     default:

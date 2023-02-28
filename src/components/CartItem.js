@@ -1,20 +1,27 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteFromCart } from "../redux/products/actions";
 
 
 function CartItem({productId}) {
-    const stateData = useSelector((state)=>state.productReducer)
+    const stateData = useSelector((state)=>state.productReducer);
+    const dispatch = useDispatch();
 
     let {product_name,product_catagory,product_image_link,product_unit_price,id}=stateData.products.filter((productInfo)=>productInfo.id==productId)[0]
 
 
     let {quantity,unit_price}=stateData.cart[id];
 
-
+const productDeleteFromCartHandler = (e)=>{
+  console.log("delete Value")
+  console.log(e.target.value)
+  dispatch(deleteFromCart(e.target.value));
+  
+}
 
   return (
     <div>
-        
+        {id}
       <div class="cartCard">
         <div class="flex items-center col-span-6 space-x-6">
           {/* <!-- cart image --> */}
@@ -52,8 +59,9 @@ function CartItem({productId}) {
         </div>
         {/* <!-- delete button --> */}
         <div class="flex items-center justify-center col-span-2 mt-4 md:justify-end md:mt-0">
-          <button class="lws-removeFromCart">
-            <i class="text-lg text-red-400 fa-solid fa-trash"></i>
+          <button class="lws-removeFromCart"  value ={id} onClick={(e)=>productDeleteFromCartHandler(e)} >
+            {/* <i class="text-lg text-red-400 fa-solid fa-trash" ></i> */}
+            delete
           </button>
         </div>
       </div>
