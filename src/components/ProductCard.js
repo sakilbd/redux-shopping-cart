@@ -6,8 +6,9 @@ function ProductCard({productInfo}) {
   let stateData = useSelector((state)=>state.productReducer)
   let dispatch = useDispatch();
 
-  const addToCartHandler = (e)=>{
-    dispatch(addToCart(e.target.value))
+  const addToCartHandler = (e,price)=>{
+    dispatch(addToCart({id:e.target.value,price:price}))
+    
 
   }
   return (
@@ -29,7 +30,7 @@ function ProductCard({productInfo}) {
               QTY <span class="lws-quantity">{productInfo.product_quantity}</span>
             </p>
           </div>
-          <button class="lws-btnAddToCart" value={productInfo.id} onClick={addToCartHandler}>Add To Cart</button>
+          <button class="lws-btnAddToCart" value={productInfo.id} onClick={(e)=>addToCartHandler(e,`${productInfo.product_unit_price}`)}>Add To Cart</button>
         </div>
       </div>
     </div>

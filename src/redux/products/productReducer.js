@@ -12,9 +12,20 @@ const getId = (product) => {
     (maxId, current) => Math.max(maxId, current.id),
     -1
   );
-
   return maxId + 1;
 };
+
+const getCartProductQuantity = (cartState,productId)=>{
+    let productCount =0;
+    for(let item of cartState){
+        if(item.id ==productId){
+            productCount= item.quantity+1;
+            break;
+        }
+    }
+    return productCount;
+
+}
 
 const productReducer = (state = initialState, action) => {
   // let obj = ;
@@ -28,7 +39,12 @@ const productReducer = (state = initialState, action) => {
     case ADDTOCART:
       return {
         ...state,
-        cart: [...state.cart, { id: action.payload, quantity: 2 }],
+        cart: [
+            ...state.cart,
+             { 
+            id: action.payload.id, 
+            quantity: getCartProductQuantity(state.cart,action.payload.id) ,
+            unit_price:action.payload.price}],
       };
 
     default:

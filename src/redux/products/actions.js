@@ -11,10 +11,10 @@ export const productAdd = (productInfo) => {
     };
 };
 
-export const addToCart = (productId) => {
+export const addToCart = (cartInfo) => {
     return {
         type: ADDTOCART,
-        payload: productId,
+        payload: cartInfo,
     };
 };
 
