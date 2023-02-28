@@ -23,6 +23,18 @@ const getCartProductQuantity = (cartState, productId) => {
   return productPreviousQuantiy
 };
 
+const productUpdateQuantity =(state,productId) =>{
+
+  const object = state.products.map(product=>{
+    if(product.id == productId){
+      return {...product,product_quantity:product.product_quantity-1}
+    }
+    c(product);
+    return product
+  })
+return object;
+}
+
 const productReducer = (state = initialState, action) => {
   // let obj = ;
   // obj[id]=1
@@ -42,6 +54,11 @@ const productReducer = (state = initialState, action) => {
             unit_price: action.payload.price
           },
         },
+        products:[
+         
+          ...productUpdateQuantity(state,action.payload.id)
+        ]
+
       };
 
     default:
