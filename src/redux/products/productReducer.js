@@ -1,9 +1,9 @@
 import { PRODUCTADDED, ADDTOCART } from "./actionTypes";
 // import initialState from "./initialState";
-
+const c = console.log.bind(console);
 const initialState = {
   products: [],
-  cart: [],
+  cart: {},
 };
 
 const getId = (product) => {
@@ -15,17 +15,13 @@ const getId = (product) => {
   return maxId + 1;
 };
 
-const getCartProductQuantity = (cartState,productId)=>{
-    let productCount =0;
-    for(let item of cartState){
-        if(item.id ==productId){
-            productCount= item.quantity+1;
-            break;
-        }
-    }
-    return productCount;
-
-}
+const getCartProductQuantity = (cartState, productId) => {
+  // c("quantity :",productId);
+  // c(cartState.cart[productId]);
+  
+  let productPreviousQuantiy =(cartState.cart[productId]?.quantity ?cartState.cart[productId].quantity:0)+1
+  return productPreviousQuantiy
+};
 
 const productReducer = (state = initialState, action) => {
   // let obj = ;
@@ -39,12 +35,14 @@ const productReducer = (state = initialState, action) => {
     case ADDTOCART:
       return {
         ...state,
-        cart: [
-            ...state.cart,
-             { 
-            id: action.payload.id, 
-            quantity: getCartProductQuantity(state.cart,action.payload.id) ,
-            unit_price:action.payload.price}],
+        cart: {
+          ...state.cart,
+          [action.payload.id]: {
+            quantity: getCartProductQuantity(state, action.payload.id)?getCartProductQuantity(state, action.payload.id):1,
+            // quantity:1,
+            unit_price: action.payload.price
+          },
+        },
       };
 
     default:
