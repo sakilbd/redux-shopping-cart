@@ -1,8 +1,15 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/products/actions";
 
 function ProductCard({productInfo}) {
-  
+  let stateData = useSelector((state)=>state.productReducer)
+  let dispatch = useDispatch();
+
+  const addToCartHandler = (e)=>{
+    dispatch(addToCart(e.target.value))
+
+  }
   return (
     <div>
       <div class="lws-productCard">
@@ -22,7 +29,7 @@ function ProductCard({productInfo}) {
               QTY <span class="lws-quantity">{productInfo.product_quantity}</span>
             </p>
           </div>
-          <button class="lws-btnAddToCart">Add To Cart</button>
+          <button class="lws-btnAddToCart" value={productInfo.id} onClick={addToCartHandler}>Add To Cart</button>
         </div>
       </div>
     </div>

@@ -13,7 +13,7 @@ function Home() {
             <div class="productContainer" id="lws-productContainer">
                 {/* <!-- product item --> */}
                 {
-                  stateData.map((item,i)=>{
+                  stateData.products.map((item,i)=>{
                     return (
                       <ProductCard key={i} productInfo = {item}/>
                     )
