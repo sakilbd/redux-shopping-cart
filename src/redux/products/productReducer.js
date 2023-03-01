@@ -46,7 +46,7 @@ const productUpdateQuantity = (state, productId) => {
 const deleteProductFromCart = (state, productId) => {
   let selectedProduct = state.products.map((item) => {
     if (item.id == productId) {
-      item.product_quantity+=state.cart[productId].quantity;
+      item.product_quantity += state.cart[productId].quantity;
     }
     return item;
   });
