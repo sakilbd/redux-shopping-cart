@@ -40,7 +40,7 @@ function CartItem({ productId }) {
 
   return (
     <div>
-      {id}
+     
       <div class="cartCard">
         <div class="flex items-center col-span-6 space-x-6">
           {/* <!-- cart image --> */}
