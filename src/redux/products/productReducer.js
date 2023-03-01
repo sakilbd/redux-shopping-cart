@@ -40,6 +40,7 @@ const productUpdateQuantity = (state, productId) => {
 const deleteProductFromCart = (state, productId) => {
   console.log('delete');
   console.log(state.cart[productId])
+  delete state.cart[productId];
   return {...state.cart};
 };
 

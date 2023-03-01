@@ -12,10 +12,10 @@ function CartItem({productId}) {
 
     let {quantity,unit_price}=stateData.cart[id];
 
-const productDeleteFromCartHandler = (e)=>{
+const productDeleteFromCartHandler = (id)=>{
   console.log("delete Value")
-  console.log(e.target.value)
-  dispatch(deleteFromCart(e.target.value));
+  console.log(id)
+  dispatch(deleteFromCart(id));
   
 }
 
@@ -59,9 +59,9 @@ const productDeleteFromCartHandler = (e)=>{
         </div>
         {/* <!-- delete button --> */}
         <div class="flex items-center justify-center col-span-2 mt-4 md:justify-end md:mt-0">
-          <button class="lws-removeFromCart"  value ={id} onClick={(e)=>productDeleteFromCartHandler(e)} >
-            {/* <i class="text-lg text-red-400 fa-solid fa-trash" ></i> */}
-            delete
+          <button class="lws-removeFromCart"   onClick={()=>productDeleteFromCartHandler(id)} >
+            <i class="text-lg text-red-400 fa-solid fa-trash" ></i>
+           
           </button>
         </div>
       </div>
