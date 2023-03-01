@@ -2,7 +2,8 @@ import {
     PRODUCTADDED,
     ADDTOCART,
     DELETEFROMCART,
-    CARTPRODUCTINCREMENT
+    CARTPRODUCTINCREMENT,
+    CARTPRODUCTDECREMENT
    
 } from "./actionTypes";
 
@@ -32,4 +33,10 @@ export const cartProductIncrement = (productId) => {
     };
 };
 
+export const cartProductDecrement = (productId) => {
+    return {
+        type: CARTPRODUCTDECREMENT,
+        payload: productId,
+    };
+};
 

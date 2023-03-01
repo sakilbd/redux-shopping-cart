@@ -3,6 +3,7 @@ import {
   ADDTOCART,
   DELETEFROMCART,
   CARTPRODUCTINCREMENT,
+  CARTPRODUCTDECREMENT,
 } from "./actionTypes";
 // import initialState from "./initialState";
 const c = console.log.bind(console);
@@ -58,9 +59,20 @@ const cartProductIncrementHandler = (state, productId) => {
     return item;
   });
 
-  return  state.cart[productId];
+  return state.cart[productId];
 };
 
+const cartProductDecrementHandler = (state, productId) => {
+  state.cart[productId].quantity = state.cart[productId].quantity - 1;
+  let selectedProduct = state.products.map((item) => {
+    if (item.id == productId) {
+      item.product_quantity++;
+    }
+    return item;
+  });
+
+  return state.cart[productId];
+};
 const productReducer = (state = initialState, action) => {
   // let obj = ;
   // obj[id]=1
@@ -92,10 +104,19 @@ const productReducer = (state = initialState, action) => {
     case CARTPRODUCTINCREMENT:
       return {
         ...state,
-        
-        cart:{
+
+        cart: {
           ...state.cart,
-          [action.payload]:cartProductIncrementHandler(state,action.payload)
+          [action.payload]: cartProductIncrementHandler(state, action.payload),
+        },
+      };
+    case CARTPRODUCTDECREMENT:
+      return {
+        ...state,
+
+        cart: {
+          ...state.cart,
+          [action.payload]: cartProductDecrementHandler(state, action.payload),
         },
       };
 
