@@ -6,8 +6,7 @@ function Cart() {
   const stateData = useSelector((state) => state.productReducer);
 
   const subTotal = Object.values(stateData.cart).reduce((total, valueObj) => {
-    console.log("subtotals")
-    console.log(total);
+  
     return total+(valueObj.quantity*valueObj.unit_price);
   }, 0);
 

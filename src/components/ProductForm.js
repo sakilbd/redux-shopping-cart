@@ -11,13 +11,12 @@ function ProductForm() {
         e.preventDefault();
         let formData = {}
         let formDataTags = e.target;
-        // console.log(formDataTags)
         let length = formDataTags.length-1; // as button needs to be excluded
        for(let idx = 0;idx<length;idx++){
         formData[formDataTags[idx].name] =formDataTags[idx].value
        }
        dispatch(productAdd(formData))
-        c(stateData);
+       
       
     }
   return (

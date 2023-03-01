@@ -37,7 +37,7 @@ const productUpdateQuantity = (state, productId) => {
     if (product.id == productId) {
       return { ...product, product_quantity: product.product_quantity - 1 };
     }
-    c(product);
+   
     return product;
   });
   return object;

@@ -13,7 +13,7 @@ function CartItem({ productId }) {
   const checkStockOfAProduct = stateData.products.filter(
     (item) => item.id == productId
   )[0].product_quantity;
-  console.log("productQuantity : " + checkStockOfAProduct);
+  
 
   let {
     product_name,
@@ -28,8 +28,7 @@ function CartItem({ productId }) {
   let { quantity, unit_price } = stateData.cart[id];
 
   const productDeleteFromCartHandler = (id) => {
-    console.log("delete Value");
-    console.log(id);
+   
     dispatch(deleteFromCart(id));
   };
   const cartProductIncrementHandler = (id) => {
