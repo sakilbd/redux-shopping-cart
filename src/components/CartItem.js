@@ -10,6 +10,11 @@ function CartItem({ productId }) {
   const stateData = useSelector((state) => state.productReducer);
   const dispatch = useDispatch();
 
+  const checkStockOfAProduct = stateData.products.filter(
+    (item) => item.id == productId
+  )[0].product_quantity;
+  console.log("productQuantity : " + checkStockOfAProduct);
+
   let {
     product_name,
     product_catagory,
@@ -53,16 +58,40 @@ function CartItem({ productId }) {
         <div class="flex items-center justify-center col-span-4 mt-4 space-x-8 md:mt-0">
           {/* <!-- amount buttons --> */}
           <div class="flex items-center space-x-4">
-            <button
-              class="lws-incrementQuantity"
-              onClick={() => cartProductIncrementHandler(productId)}
-            >
-              <i class="text-lg fa-solid fa-plus"></i>
-            </button>
+            {checkStockOfAProduct == 0 ? (
+              <button
+                class="lws-incrementQuantity text-slate-600"
+                onClick={() => cartProductIncrementHandler(productId)}
+                disabled
+              >
+                <i class="text-lg fa-solid fa-plus"></i>
+              </button>
+            ) : (
+              <button
+                class="lws-incrementQuantity"
+                onClick={() => cartProductIncrementHandler(productId)}
+              >
+                <i class="text-lg fa-solid fa-plus"></i>
+              </button>
+            )}
+
             <span class="lws-cartQuantity">{quantity}</span>
-            <button class="lws-decrementQuantity" onClick={() => cartProductDecrementHandler(productId)}>
-              <i class="text-lg fa-solid fa-minus"></i>
-            </button>
+            {quantity == 0 ? (
+              <button
+                class="lws-decrementQuantity text-slate-600"
+                onClick={() => cartProductDecrementHandler(productId)}
+                disabled
+              >
+                <i class="text-lg fa-solid fa-minus"></i>
+              </button>
+            ) : (
+              <button
+                class="lws-decrementQuantity"
+                onClick={() => cartProductDecrementHandler(productId)}
+              >
+                <i class="text-lg fa-solid fa-minus"></i>
+              </button>
+            )}
           </div>
           {/* <!-- price --> */}
           <p class="text-lg font-bold">
