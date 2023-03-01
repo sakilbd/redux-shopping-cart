@@ -1,7 +1,8 @@
 import {
     PRODUCTADDED,
     ADDTOCART,
-    DELETEFROMCART
+    DELETEFROMCART,
+    CARTPRODUCTINCREMENT
    
 } from "./actionTypes";
 
@@ -21,6 +22,12 @@ export const addToCart = (cartInfo) => {
 export const deleteFromCart = (productId) => {
     return {
         type: DELETEFROMCART,
+        payload: productId,
+    };
+};
+export const cartProductIncrement = (productId) => {
+    return {
+        type: CARTPRODUCTINCREMENT,
         payload: productId,
     };
 };

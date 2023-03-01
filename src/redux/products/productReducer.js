@@ -1,4 +1,9 @@
-import { PRODUCTADDED, ADDTOCART, DELETEFROMCART } from "./actionTypes";
+import {
+  PRODUCTADDED,
+  ADDTOCART,
+  DELETEFROMCART,
+  CARTPRODUCTINCREMENT,
+} from "./actionTypes";
 // import initialState from "./initialState";
 const c = console.log.bind(console);
 const initialState = {
@@ -38,10 +43,22 @@ const productUpdateQuantity = (state, productId) => {
 };
 
 const deleteProductFromCart = (state, productId) => {
-  console.log('delete');
-  console.log(state.cart[productId])
+  console.log("delete");
+  console.log(state.cart[productId]);
   delete state.cart[productId];
-  return {...state.cart};
+  return { ...state.cart };
+};
+
+const cartProductIncrementHandler = (state, productId) => {
+  state.cart[productId].quantity = state.cart[productId].quantity + 1;
+  let selectedProduct = state.products.map((item) => {
+    if (item.id == productId) {
+      item.product_quantity--;
+    }
+    return item;
+  });
+
+  return  state.cart[productId];
 };
 
 const productReducer = (state = initialState, action) => {
@@ -71,6 +88,15 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: deleteProductFromCart(state, action.payload),
+      };
+    case CARTPRODUCTINCREMENT:
+      return {
+        ...state,
+        
+        cart:{
+          ...state.cart,
+          [action.payload]:cartProductIncrementHandler(state,action.payload)
+        },
       };
 
     default:
