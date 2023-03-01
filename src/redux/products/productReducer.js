@@ -44,8 +44,12 @@ const productUpdateQuantity = (state, productId) => {
 };
 
 const deleteProductFromCart = (state, productId) => {
-  console.log("delete");
-  console.log(state.cart[productId]);
+  let selectedProduct = state.products.map((item) => {
+    if (item.id == productId) {
+      item.product_quantity+=state.cart[productId].quantity;
+    }
+    return item;
+  });
   delete state.cart[productId];
   return { ...state.cart };
 };
