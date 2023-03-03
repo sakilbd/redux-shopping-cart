@@ -84,7 +84,8 @@ function ProductForm() {
             </div>
           </div>
           {/* <!-- submit button --> */}
-          <button type="submit" id="lws-inputSubmit" class="submit">
+          {/* color hardcoded beacut of live server transparent issue */}
+          <button type="submit" id="lws-inputSubmit" class="submit" style={{ background:'rgb(23,28,42)' }}> 
             Add Product
           </button>
         </form>
